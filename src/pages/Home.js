@@ -14,7 +14,9 @@ import { IsPortrait } from '../constants'
 const articleTree = getArticleTreeFromIpynb(homePageContents)
 const journalCells = articleTree.paragraphs.filter(({ metadata }) => metadata?.jdh?.section === 'journal')
 const editorialBoardCells = articleTree.paragraphs.filter(({ metadata }) => metadata?.jdh?.section === 'editorial-board')
+const editorialTeamCells = articleTree.paragraphs.filter(({ metadata }) => metadata?.jdh?.section === 'editorial-team')
 const callForPapers = articleTree.paragraphs.filter(({ metadata }) => metadata?.jdh?.section === 'call-for-papers')
+
 const milestones = articleTree.paragraphs
   .find(({ metadata }) => metadata?.jdh?.section === 'milestones')
 
@@ -32,8 +34,8 @@ const Home = () => {
         <Col md={{span:8, offset:2}}>
           <h1 className="my-5">Write (Digital) History.</h1>
           <h2 className="my-5">
-            As an international, academic, peer-reviewed and open access journal,
-            the Journal of Digital History (JDH) will be setting new standards in history publishing
+            As an international, academic, peer-reviewed and open-access journal,
+            the Journal of Digital History (JDH) will set new standards in history publishing
             based on the principle of multi-layered articles.
           </h2>
           <h2 className="sans" style={{
@@ -78,6 +80,16 @@ const Home = () => {
         </Col>
       </Row>
       <Row>
+        {editorialTeamCells.map((props, i) => (
+          <Col key={i} md={{span:4, offset: i % 2 === 0 ? 2 : 0}}>
+          <ArticleCell {...props} idx="▲"/>
+          </Col>
+        ))}
+      </Row>
+      <Row className="mt-5">
+        {/* }<Col md={{ offset: 2, span:10 }}>
+          <h4 className="mt-5 mb-3 font-italic">{t('pages.home.editorialBoardMembersAlphabeticList')}</h4>
+        </Col>*/}
         {editorialBoardCells.map((props, i) => (
           <Col key={i} md={{span:4, offset: i % 2 === 0 ? 2 : 0}}>
           <ArticleCell {...props} idx="▲"/>
